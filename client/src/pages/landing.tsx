@@ -39,27 +39,27 @@ export default function LandingPage() {
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-6 py-12">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold mb-4">Select Your Panel</h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        <div className="text-center mb-8 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Select Your Panel</h2>
+          <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto px-4">
             Choose the appropriate interface for your role in the restaurant management system
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {/* Customer Panel Card */}
           <Link href="/customer">
             <Card className="bg-secondary-dark border-gray-700 hover:border-accent-orange transition-all duration-300 cursor-pointer group h-full">
-              <CardContent className="p-8 text-center h-full flex flex-col">
-                <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Smartphone className="text-white" size={32} />
+              <CardContent className="p-6 sm:p-8 text-center h-full flex flex-col">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <Smartphone className="text-white" size={24} />
                 </div>
-                <h3 className="text-2xl font-bold mb-4">Customer Panel</h3>
-                <p className="text-gray-400 mb-6 flex-grow">
+                <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Customer Panel</h3>
+                <p className="text-gray-400 mb-4 sm:mb-6 flex-grow text-sm sm:text-base">
                   QR code table ordering, menu browsing, and service requests for restaurant guests
                 </p>
-                <div className="space-y-2 text-sm text-gray-300 mb-8">
+                <div className="space-y-2 text-xs sm:text-sm text-gray-300 mb-6 sm:mb-8">
                   <div className="flex items-center justify-center space-x-2">
                     <QrCode className="text-accent-orange" size={16} />
                     <span>QR Code Integration</span>
@@ -83,15 +83,15 @@ export default function LandingPage() {
           {/* Staff Panel Card */}
           <Link href="/staff">
             <Card className="bg-secondary-dark border-gray-700 hover:border-success-green transition-all duration-300 cursor-pointer group h-full">
-              <CardContent className="p-8 text-center h-full flex flex-col">
-                <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <ClipboardList className="text-white" size={32} />
+              <CardContent className="p-6 sm:p-8 text-center h-full flex flex-col">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <ClipboardList className="text-white" size={24} />
                 </div>
-                <h3 className="text-2xl font-bold mb-4">Staff Panel</h3>
-                <p className="text-gray-400 mb-6 flex-grow">
+                <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Staff Panel</h3>
+                <p className="text-gray-400 mb-4 sm:mb-6 flex-grow text-sm sm:text-base">
                   Real-time kitchen dashboard for order management and service coordination
                 </p>
-                <div className="space-y-2 text-sm text-gray-300 mb-8">
+                <div className="space-y-2 text-xs sm:text-sm text-gray-300 mb-6 sm:mb-8">
                   <div className="flex items-center justify-center space-x-2">
                     <Clock className="text-success-green" size={16} />
                     <span>Real-time Orders</span>
@@ -115,15 +115,15 @@ export default function LandingPage() {
           {/* Admin Panel Card */}
           <Link href="/admin">
             <Card className="bg-secondary-dark border-gray-700 hover:border-warning-yellow transition-all duration-300 cursor-pointer group h-full">
-              <CardContent className="p-8 text-center h-full flex flex-col">
-                <div className="w-20 h-20 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <BarChart3 className="text-white" size={32} />
+              <CardContent className="p-6 sm:p-8 text-center h-full flex flex-col">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <BarChart3 className="text-white" size={24} />
                 </div>
-                <h3 className="text-2xl font-bold mb-4">Admin Panel</h3>
-                <p className="text-gray-400 mb-6 flex-grow">
+                <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Admin Panel</h3>
+                <p className="text-gray-400 mb-4 sm:mb-6 flex-grow text-sm sm:text-base">
                   Complete management dashboard with analytics, billing, and system oversight
                 </p>
-                <div className="space-y-2 text-sm text-gray-300 mb-8">
+                <div className="space-y-2 text-xs sm:text-sm text-gray-300 mb-6 sm:mb-8">
                   <div className="flex items-center justify-center space-x-2">
                     <TrendingUp className="text-warning-yellow" size={16} />
                     <span>Analytics Dashboard</span>

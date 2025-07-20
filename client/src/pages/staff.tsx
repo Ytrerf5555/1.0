@@ -50,36 +50,36 @@ export default function StaffPanel() {
 
   return (
     <div className="min-h-screen bg-primary-dark">
-      <header className="bg-secondary-dark p-4 shadow-lg">
+      <header className="bg-secondary-dark p-3 sm:p-4 shadow-lg">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 sm:space-x-3">
             <Link href="/">
               <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
                 <ArrowLeft size={16} />
               </Button>
             </Link>
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-success-green rounded-lg flex items-center justify-center">
-                <ClipboardList className="text-white" size={16} />
+              <div className="w-6 h-6 sm:w-8 sm:h-8 bg-success-green rounded-lg flex items-center justify-center">
+                <ClipboardList className="text-white" size={14} />
               </div>
-              <h1 className="text-xl font-bold">Staff Dashboard</h1>
+              <h1 className="text-lg sm:text-xl font-bold">Staff Dashboard</h1>
             </div>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             <div className="text-center">
-              <p className="text-gray-400 text-sm">Active Orders</p>
-              <p className="text-success-green font-bold text-xl">{orders.length}</p>
+              <p className="text-gray-400 text-xs sm:text-sm">Orders</p>
+              <p className="text-success-green font-bold text-lg sm:text-xl">{orders.length}</p>
             </div>
             <div className="text-center">
-              <p className="text-gray-400 text-sm">Pending Requests</p>
-              <p className="text-warning-yellow font-bold text-xl">{serviceRequests.length}</p>
+              <p className="text-gray-400 text-xs sm:text-sm">Requests</p>
+              <p className="text-warning-yellow font-bold text-lg sm:text-xl">{serviceRequests.length}</p>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 py-6">
-        <div className="grid lg:grid-cols-2 gap-6">
+      <main className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           {/* Orders Column */}
           <div>
             <div className="flex items-center justify-between mb-4">

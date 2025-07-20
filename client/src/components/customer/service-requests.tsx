@@ -64,43 +64,43 @@ export default function ServiceRequests({ tableNumber }: ServiceRequestsProps) {
 
   return (
     <Card className="bg-secondary-dark border-gray-700">
-      <CardContent className="p-6">
-        <h3 className="text-xl font-bold mb-4">Need Help?</h3>
-        <div className="grid grid-cols-2 gap-3">
+      <CardContent className="p-4 sm:p-6">
+        <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">Need Help?</h3>
+        <div className="grid grid-cols-2 gap-2 sm:gap-3">
           <Button
             variant="ghost"
-            className="bg-primary-dark hover:bg-gray-700 h-auto p-3 flex flex-col items-center space-y-1 border border-gray-700"
+            className="bg-primary-dark hover:bg-gray-700 h-auto p-2 sm:p-3 flex flex-col items-center space-y-1 border border-gray-700"
             onClick={() => sendServiceRequest("staff")}
           >
-            <UserCheck className="text-accent-orange" size={20} />
-            <span className="text-sm">Call Staff</span>
+            <UserCheck className="text-accent-orange" size={16} />
+            <span className="text-xs sm:text-sm">Call Staff</span>
           </Button>
           
           <Button
             variant="ghost"
-            className="bg-primary-dark hover:bg-gray-700 h-auto p-3 flex flex-col items-center space-y-1 border border-gray-700"
+            className="bg-primary-dark hover:bg-gray-700 h-auto p-2 sm:p-3 flex flex-col items-center space-y-1 border border-gray-700"
             onClick={() => sendServiceRequest("water")}
           >
-            <Droplets className="text-blue-400" size={20} />
-            <span className="text-sm">Water</span>
+            <Droplets className="text-blue-400" size={16} />
+            <span className="text-xs sm:text-sm">Water</span>
           </Button>
           
           <Button
             variant="ghost"
-            className="bg-primary-dark hover:bg-gray-700 h-auto p-3 flex flex-col items-center space-y-1 border border-gray-700"
+            className="bg-primary-dark hover:bg-gray-700 h-auto p-2 sm:p-3 flex flex-col items-center space-y-1 border border-gray-700"
             onClick={() => sendServiceRequest("cleaning")}
           >
-            <Fan className="text-green-400" size={20} />
-            <span className="text-sm">Cleaning</span>
+            <Fan className="text-green-400" size={16} />
+            <span className="text-xs sm:text-sm">Cleaning</span>
           </Button>
           
           <Button
             variant="ghost"
-            className="bg-primary-dark hover:bg-gray-700 h-auto p-3 flex flex-col items-center space-y-1 border border-gray-700"
+            className="bg-primary-dark hover:bg-gray-700 h-auto p-2 sm:p-3 flex flex-col items-center space-y-1 border border-gray-700"
             onClick={requestBill}
           >
-            <Receipt className="text-warning-yellow" size={20} />
-            <span className="text-sm">Get Bill</span>
+            <Receipt className="text-warning-yellow" size={16} />
+            <span className="text-xs sm:text-sm">Get Bill</span>
           </Button>
         </div>
       </CardContent>

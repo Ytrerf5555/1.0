@@ -108,30 +108,30 @@ export default function Cart({ cart, setCart, tableNumber }: CartProps) {
 
   return (
     <Card className="bg-secondary-dark border-gray-700">
-      <CardContent className="p-6">
-        <h3 className="text-xl font-bold mb-4">Your Order</h3>
+      <CardContent className="p-4 sm:p-6">
+        <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">Your Order</h3>
         
         {cart.length === 0 ? (
           <p className="text-gray-400 text-center py-8">Your cart is empty</p>
         ) : (
           <>
             {/* Cart Items */}
-            <div className="space-y-3 mb-4">
+            <div className="space-y-2 sm:space-y-3 mb-3 sm:mb-4">
               {cart.map((item) => (
                 <Card key={item.id} className="bg-primary-dark border-gray-700">
-                  <CardContent className="p-3">
+                  <CardContent className="p-2.5 sm:p-3">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="font-medium">{item.name}</span>
+                      <span className="font-medium text-sm sm:text-base truncate mr-2">{item.name}</span>
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="text-danger-red hover:text-red-400 h-6 w-6 p-0"
+                        className="text-danger-red hover:text-red-400 h-5 w-5 sm:h-6 sm:w-6 p-0 flex-shrink-0"
                         onClick={() => removeItem(item.id)}
                       >
-                        <X size={14} />
+                        <X size={12} />
                       </Button>
                     </div>
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                       <div className="flex items-center space-x-2">
                         <Button
                           variant="ghost"
@@ -139,13 +139,13 @@ export default function Cart({ cart, setCart, tableNumber }: CartProps) {
                           className="h-6 w-6 p-0 bg-gray-600 hover:bg-gray-500"
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
                         >
-                          <Minus size={12} />
+                          <Minus size={10} />
                         </Button>
                         <Input
                           type="number"
                           value={item.quantity}
                           onChange={(e) => updateQuantity(item.id, parseInt(e.target.value) || 1)}
-                          className="w-16 h-6 text-center bg-transparent border-none p-0"
+                          className="w-12 sm:w-16 h-6 text-center bg-transparent border-none p-0 text-sm"
                           min="1"
                         />
                         <Button
@@ -154,21 +154,21 @@ export default function Cart({ cart, setCart, tableNumber }: CartProps) {
                           className="h-6 w-6 p-0 bg-accent-orange hover:bg-orange-600"
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
                         >
-                          <Plus size={12} />
+                          <Plus size={10} />
                         </Button>
                       </div>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center justify-between sm:justify-end sm:space-x-2">
                         <div className="flex items-center space-x-1">
                           <Checkbox
                             id={`pack-${item.id}`}
                             checked={item.pack}
                             onCheckedChange={() => toggleItemPack(item.id)}
                           />
-                          <Label htmlFor={`pack-${item.id}`} className="text-sm">
+                          <Label htmlFor={`pack-${item.id}`} className="text-xs sm:text-sm">
                             Pack
                           </Label>
                         </div>
-                        <span className="text-accent-orange font-bold">
+                        <span className="text-accent-orange font-bold text-sm sm:text-base">
                           ₹{getItemPrice(item.id) * item.quantity}
                         </span>
                       </div>
@@ -179,38 +179,38 @@ export default function Cart({ cart, setCart, tableNumber }: CartProps) {
             </div>
 
             {/* Order Options */}
-            <div className="space-y-4 mb-6">
+            <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="pack-all"
                   checked={packFullOrder}
                   onCheckedChange={handlePackFullOrder}
                 />
-                <Label htmlFor="pack-all">Pack entire order</Label>
+                <Label htmlFor="pack-all" className="text-sm sm:text-base">Pack entire order</Label>
               </div>
               
               <div>
                 <p className="text-sm font-medium mb-2">Payment Method:</p>
-                <RadioGroup value={paymentMode} onValueChange={(value: "upi" | "cash") => setPaymentMode(value)}>
+                <RadioGroup value={paymentMode} onValueChange={(value: "upi" | "cash") => setPaymentMode(value)} className="flex flex-row sm:flex-col gap-4 sm:gap-2">
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="cash" id="cash" />
-                    <Label htmlFor="cash">Cash</Label>
+                    <Label htmlFor="cash" className="text-sm sm:text-base">Cash</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="upi" id="upi" />
-                    <Label htmlFor="upi">UPI</Label>
+                    <Label htmlFor="upi" className="text-sm sm:text-base">UPI</Label>
                   </div>
                 </RadioGroup>
               </div>
             </div>
 
-            <div className="border-t border-gray-700 pt-4">
-              <div className="flex justify-between text-lg font-bold mb-4">
+            <div className="border-t border-gray-700 pt-3 sm:pt-4">
+              <div className="flex justify-between text-base sm:text-lg font-bold mb-3 sm:mb-4">
                 <span>Total:</span>
                 <span className="text-accent-orange">₹{total}</span>
               </div>
               <Button 
-                className="w-full bg-accent-orange hover:bg-orange-600 text-white font-semibold py-3"
+                className="w-full bg-accent-orange hover:bg-orange-600 text-white font-semibold py-2.5 sm:py-3 text-sm sm:text-base"
                 onClick={placeOrder}
               >
                 Place Order

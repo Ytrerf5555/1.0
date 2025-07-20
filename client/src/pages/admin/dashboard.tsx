@@ -63,83 +63,83 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <div className="mb-8">
-        <h2 className="text-3xl font-bold mb-2">Dashboard Overview</h2>
-        <p className="text-gray-400">Real-time restaurant management analytics</p>
+      <div className="mb-6 sm:mb-8">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-2">Dashboard Overview</h2>
+        <p className="text-gray-400 text-sm sm:text-base">Real-time restaurant management analytics</p>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-6 sm:mb-8">
         <Card className="bg-secondary-dark border-gray-700">
-          <CardContent className="p-6">
+          <CardContent className="p-3 sm:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-400 text-sm">Today's Orders</p>
-                <p className="text-2xl font-bold text-accent-orange">{todayOrders.length}</p>
+                <p className="text-gray-400 text-xs sm:text-sm">Today's Orders</p>
+                <p className="text-lg sm:text-2xl font-bold text-accent-orange">{todayOrders.length}</p>
               </div>
-              <div className="w-12 h-12 bg-accent-orange rounded-lg flex items-center justify-center">
-                <ShoppingBag className="text-white" size={20} />
+              <div className="w-8 h-8 sm:w-12 sm:h-12 bg-accent-orange rounded-lg flex items-center justify-center">
+                <ShoppingBag className="text-white" size={16} />
               </div>
             </div>
-            <p className="text-success-green text-sm mt-2">+12% from yesterday</p>
+            <p className="text-success-green text-xs sm:text-sm mt-2">+12% from yesterday</p>
           </CardContent>
         </Card>
 
         <Card className="bg-secondary-dark border-gray-700">
-          <CardContent className="p-6">
+          <CardContent className="p-3 sm:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-400 text-sm">Revenue</p>
-                <p className="text-2xl font-bold text-success-green">₹{todayRevenue.toLocaleString()}</p>
+                <p className="text-gray-400 text-xs sm:text-sm">Revenue</p>
+                <p className="text-lg sm:text-2xl font-bold text-success-green">₹{todayRevenue.toLocaleString()}</p>
               </div>
-              <div className="w-12 h-12 bg-success-green rounded-lg flex items-center justify-center">
-                <DollarSign className="text-white" size={20} />
+              <div className="w-8 h-8 sm:w-12 sm:h-12 bg-success-green rounded-lg flex items-center justify-center">
+                <DollarSign className="text-white" size={16} />
               </div>
             </div>
-            <p className="text-success-green text-sm mt-2">+8% from yesterday</p>
+            <p className="text-success-green text-xs sm:text-sm mt-2">+8% from yesterday</p>
           </CardContent>
         </Card>
 
         <Card className="bg-secondary-dark border-gray-700">
-          <CardContent className="p-6">
+          <CardContent className="p-3 sm:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-400 text-sm">Active Tables</p>
-                <p className="text-2xl font-bold text-warning-yellow">{activeTables}</p>
+                <p className="text-gray-400 text-xs sm:text-sm">Active Tables</p>
+                <p className="text-lg sm:text-2xl font-bold text-warning-yellow">{activeTables}</p>
               </div>
-              <div className="w-12 h-12 bg-warning-yellow rounded-lg flex items-center justify-center">
-                <Users className="text-black" size={20} />
+              <div className="w-8 h-8 sm:w-12 sm:h-12 bg-warning-yellow rounded-lg flex items-center justify-center">
+                <Users className="text-black" size={16} />
               </div>
             </div>
-            <p className="text-gray-400 text-sm mt-2">out of 12 tables</p>
+            <p className="text-gray-400 text-xs sm:text-sm mt-2">out of 12 tables</p>
           </CardContent>
         </Card>
 
         <Card className="bg-secondary-dark border-gray-700">
-          <CardContent className="p-6">
+          <CardContent className="p-3 sm:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-400 text-sm">Avg Order Time</p>
-                <p className="text-2xl font-bold text-blue-400">18</p>
+                <p className="text-gray-400 text-xs sm:text-sm">Avg Order Time</p>
+                <p className="text-lg sm:text-2xl font-bold text-blue-400">18</p>
               </div>
-              <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center">
-                <Clock className="text-white" size={20} />
+              <div className="w-8 h-8 sm:w-12 sm:h-12 bg-blue-500 rounded-lg flex items-center justify-center">
+                <Clock className="text-white" size={16} />
               </div>
             </div>
-            <p className="text-success-green text-sm mt-2">-3 min from avg</p>
+            <p className="text-success-green text-xs sm:text-sm mt-2">-3 min from avg</p>
           </CardContent>
         </Card>
       </div>
 
       {/* Charts and Activity */}
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         {/* Recent Orders */}
         <div className="lg:col-span-2">
           <Card className="bg-secondary-dark border-gray-700">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-bold">Recent Orders</h3>
-                <Button variant="ghost" className="text-accent-orange hover:text-orange-400 text-sm font-medium">
+            <CardContent className="p-4 sm:p-6">
+              <div className="flex items-center justify-between mb-4 sm:mb-6">
+                <h3 className="text-lg sm:text-xl font-bold">Recent Orders</h3>
+                <Button variant="ghost" className="text-accent-orange hover:text-orange-400 text-xs sm:text-sm font-medium">
                   View All
                 </Button>
               </div>
@@ -173,37 +173,37 @@ export default function DashboardPage() {
         {/* Quick Actions */}
         <div>
           <Card className="bg-secondary-dark border-gray-700">
-            <CardContent className="p-6">
-              <h3 className="text-xl font-bold mb-6">Quick Actions</h3>
-              <div className="space-y-4">
-                <Button variant="ghost" className="w-full flex items-center justify-between p-4 bg-primary-dark hover:bg-gray-700 rounded-lg h-auto">
-                  <div className="flex items-center space-x-3">
-                    <Plus className="text-accent-orange" size={16} />
-                    <span>Add New Item</span>
+            <CardContent className="p-4 sm:p-6">
+              <h3 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">Quick Actions</h3>
+              <div className="space-y-3 sm:space-y-4">
+                <Button variant="ghost" className="w-full flex items-center justify-between p-3 sm:p-4 bg-primary-dark hover:bg-gray-700 rounded-lg h-auto">
+                  <div className="flex items-center space-x-2 sm:space-x-3">
+                    <Plus className="text-accent-orange" size={14} />
+                    <span className="text-sm sm:text-base">Add New Item</span>
                   </div>
                   <span className="text-gray-400">→</span>
                 </Button>
 
-                <Button variant="ghost" className="w-full flex items-center justify-between p-4 bg-primary-dark hover:bg-gray-700 rounded-lg h-auto">
-                  <div className="flex items-center space-x-3">
-                    <Table className="text-success-green" size={16} />
-                    <span>Manage Tables</span>
+                <Button variant="ghost" className="w-full flex items-center justify-between p-3 sm:p-4 bg-primary-dark hover:bg-gray-700 rounded-lg h-auto">
+                  <div className="flex items-center space-x-2 sm:space-x-3">
+                    <Table className="text-success-green" size={14} />
+                    <span className="text-sm sm:text-base">Manage Tables</span>
                   </div>
                   <span className="text-gray-400">→</span>
                 </Button>
 
-                <Button variant="ghost" className="w-full flex items-center justify-between p-4 bg-primary-dark hover:bg-gray-700 rounded-lg h-auto">
-                  <div className="flex items-center space-x-3">
-                    <BarChart3 className="text-warning-yellow" size={16} />
-                    <span>View Reports</span>
+                <Button variant="ghost" className="w-full flex items-center justify-between p-3 sm:p-4 bg-primary-dark hover:bg-gray-700 rounded-lg h-auto">
+                  <div className="flex items-center space-x-2 sm:space-x-3">
+                    <BarChart3 className="text-warning-yellow" size={14} />
+                    <span className="text-sm sm:text-base">View Reports</span>
                   </div>
                   <span className="text-gray-400">→</span>
                 </Button>
 
-                <Button variant="ghost" className="w-full flex items-center justify-between p-4 bg-primary-dark hover:bg-gray-700 rounded-lg h-auto">
-                  <div className="flex items-center space-x-3">
-                    <Settings className="text-blue-400" size={16} />
-                    <span>Settings</span>
+                <Button variant="ghost" className="w-full flex items-center justify-between p-3 sm:p-4 bg-primary-dark hover:bg-gray-700 rounded-lg h-auto">
+                  <div className="flex items-center space-x-2 sm:space-x-3">
+                    <Settings className="text-blue-400" size={14} />
+                    <span className="text-sm sm:text-base">Settings</span>
                   </div>
                   <span className="text-gray-400">→</span>
                 </Button>
