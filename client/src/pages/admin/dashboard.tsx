@@ -16,6 +16,10 @@ import {
   Settings
 } from "lucide-react";
 import type { OrderEvent } from "@shared/schema";
+import AddItemModal from "@/components/admin/add-item-modal";
+import TableManagementModal from "@/components/admin/table-management-modal";
+import ReportsModal from "@/components/admin/reports-modal";
+import SettingsModal from "@/components/admin/settings-modal";
 
 interface OrderWithId extends OrderEvent {
   id: string;
@@ -23,6 +27,10 @@ interface OrderWithId extends OrderEvent {
 
 export default function DashboardPage() {
   const [todayOrders, setTodayOrders] = useState<OrderWithId[]>([]);
+  const [showAddItemModal, setShowAddItemModal] = useState(false);
+  const [showTableModal, setShowTableModal] = useState(false);
+  const [showReportsModal, setShowReportsModal] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
 
   useEffect(() => {
     const q = query(
@@ -176,7 +184,11 @@ export default function DashboardPage() {
             <CardContent className="p-4 sm:p-6">
               <h3 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">Quick Actions</h3>
               <div className="space-y-3 sm:space-y-4">
-                <Button variant="ghost" className="w-full flex items-center justify-between p-3 sm:p-4 bg-primary-dark hover:bg-gray-700 rounded-lg h-auto">
+                <Button 
+                  variant="ghost" 
+                  className="w-full flex items-center justify-between p-3 sm:p-4 bg-primary-dark hover:bg-gray-700 rounded-lg h-auto"
+                  onClick={() => setShowAddItemModal(true)}
+                >
                   <div className="flex items-center space-x-2 sm:space-x-3">
                     <Plus className="text-accent-orange" size={14} />
                     <span className="text-sm sm:text-base">Add New Item</span>
@@ -184,7 +196,11 @@ export default function DashboardPage() {
                   <span className="text-gray-400">→</span>
                 </Button>
 
-                <Button variant="ghost" className="w-full flex items-center justify-between p-3 sm:p-4 bg-primary-dark hover:bg-gray-700 rounded-lg h-auto">
+                <Button 
+                  variant="ghost" 
+                  className="w-full flex items-center justify-between p-3 sm:p-4 bg-primary-dark hover:bg-gray-700 rounded-lg h-auto"
+                  onClick={() => setShowTableModal(true)}
+                >
                   <div className="flex items-center space-x-2 sm:space-x-3">
                     <Table className="text-success-green" size={14} />
                     <span className="text-sm sm:text-base">Manage Tables</span>
@@ -192,7 +208,11 @@ export default function DashboardPage() {
                   <span className="text-gray-400">→</span>
                 </Button>
 
-                <Button variant="ghost" className="w-full flex items-center justify-between p-3 sm:p-4 bg-primary-dark hover:bg-gray-700 rounded-lg h-auto">
+                <Button 
+                  variant="ghost" 
+                  className="w-full flex items-center justify-between p-3 sm:p-4 bg-primary-dark hover:bg-gray-700 rounded-lg h-auto"
+                  onClick={() => setShowReportsModal(true)}
+                >
                   <div className="flex items-center space-x-2 sm:space-x-3">
                     <BarChart3 className="text-warning-yellow" size={14} />
                     <span className="text-sm sm:text-base">View Reports</span>
@@ -200,7 +220,11 @@ export default function DashboardPage() {
                   <span className="text-gray-400">→</span>
                 </Button>
 
-                <Button variant="ghost" className="w-full flex items-center justify-between p-3 sm:p-4 bg-primary-dark hover:bg-gray-700 rounded-lg h-auto">
+                <Button 
+                  variant="ghost" 
+                  className="w-full flex items-center justify-between p-3 sm:p-4 bg-primary-dark hover:bg-gray-700 rounded-lg h-auto"
+                  onClick={() => setShowSettingsModal(true)}
+                >
                   <div className="flex items-center space-x-2 sm:space-x-3">
                     <Settings className="text-blue-400" size={14} />
                     <span className="text-sm sm:text-base">Settings</span>
@@ -212,6 +236,24 @@ export default function DashboardPage() {
           </Card>
         </div>
       </div>
+
+      {/* Modals */}
+      <AddItemModal 
+        open={showAddItemModal} 
+        onOpenChange={setShowAddItemModal} 
+      />
+      <TableManagementModal 
+        open={showTableModal} 
+        onOpenChange={setShowTableModal} 
+      />
+      <ReportsModal 
+        open={showReportsModal} 
+        onOpenChange={setShowReportsModal} 
+      />
+      <SettingsModal 
+        open={showSettingsModal} 
+        onOpenChange={setShowSettingsModal} 
+      />
     </div>
   );
 }
