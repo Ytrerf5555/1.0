@@ -75,6 +75,8 @@ export default function Cart({ cart, setCart, tableNumber }: CartProps) {
       return;
     }
 
+    console.log("Attempting to place order...", { cart, tableNumber, paymentMode });
+
     try {
       const order: InsertOrderEvent = {
         type: "order",
@@ -84,7 +86,10 @@ export default function Cart({ cart, setCart, tableNumber }: CartProps) {
         timestamp: serverTimestamp()
       };
 
-      await addDoc(collection(db, "events"), order);
+      console.log("Order data prepared:", order);
+      
+      const docRef = await addDoc(collection(db, "events"), order);
+      console.log("Order placed successfully with ID:", docRef.id);
       
       // Clear cart after successful order
       setCart([]);
@@ -92,13 +97,17 @@ export default function Cart({ cart, setCart, tableNumber }: CartProps) {
       
       toast({
         title: "Order placed successfully!",
-        description: `Your order has been sent to the kitchen.`,
+        description: `Your order #${docRef.id.slice(-6)} has been sent to the kitchen.`,
       });
     } catch (error) {
-      console.error("Error placing order:", error);
+      console.error("Detailed error placing order:", error);
+      console.error("Error name:", (error as any)?.name);
+      console.error("Error message:", (error as any)?.message);
+      console.error("Error code:", (error as any)?.code);
+      
       toast({
         title: "Error placing order",
-        description: "Please try again later.",
+        description: `Failed to submit order: ${(error as any)?.message || 'Unknown error'}`,
         variant: "destructive"
       });
     }
