@@ -101,22 +101,27 @@ Preferred communication style: Simple, everyday language.
 
 ## Deployment Strategy
 
-### Development Environment
-- **Frontend**: Vite development server with hot reloading
-- **Backend**: TSX for TypeScript execution with auto-restart
-- **Database**: Firebase Firestore for development and production
-- **Environment Variables**: Replit Secrets for secure configuration management
+### Firebase Integration
+- **Database**: Firebase Firestore with project ID `gastroflow-dvlg0`
+- **Configuration**: Direct Firebase config integration for production deployment
+- **Real-time Features**: Firebase real-time listeners for live order and service updates
+- **Security Rules**: Open access rules configured for all collections (events, menuItems, tables, settings, bills)
 
 ### Production Build
-- **Frontend**: Static build output to `dist/public` directory
-- **Backend**: Bundled Express server with external dependencies
-- **Deployment**: Single-command build process with `npm run build`
-- **Hosting**: Express server serves static files and API endpoints
+- **Frontend**: Static build output to `dist/public` directory optimized for Firebase Hosting
+- **Build Process**: Vite production build with asset optimization and chunking
+- **Firebase CLI**: Integrated with firebase-tools for seamless deployment
+- **Hosting**: Firebase Hosting serves static React application
 
 ### Environment Configuration
-- Firebase credentials managed through environment variables
-- Separate development and production Firebase projects supported
-- Database URL configuration for PostgreSQL integration
-- CORS and security headers configured for production deployment
+- **Firebase Config**: Embedded configuration for gastroflow-dvlg0 project
+- **API Keys**: Direct integration without environment variables for Firebase deployment
+- **Build Command**: `npm run build` creates production-ready assets
+- **Deployment**: `firebase deploy` for one-command deployment to Firebase Hosting
 
-The system is designed for easy deployment to platforms like Railway, Vercel, or Firebase Hosting, with automatic environment detection and appropriate configuration loading.
+### Deployment URLs
+- **Customer Panel**: `https://gastroflow-dvlg0.web.app/customer` (Mobile-optimized)
+- **Staff Panel**: `https://gastroflow-dvlg0.web.app/staff` (Tablet-optimized)  
+- **Admin Panel**: `https://gastroflow-dvlg0.web.app/admin` (Desktop-optimized)
+
+The system is fully configured for Firebase deployment with real-time database connectivity and mobile-first customer experience.

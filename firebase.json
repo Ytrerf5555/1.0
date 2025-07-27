@@ -8,10 +8,6 @@
     ],
     "rewrites": [
       {
-        "source": "/api/**",
-        "function": "api"
-      },
-      {
         "source": "**",
         "destination": "/index.html"
       }
@@ -35,11 +31,6 @@
         ]
       }
     ]
-  },
-  "functions": {
-    "source": "dist/server",
-    "runtime": "nodejs18",
-    "predeploy": "npm run build"
   },
   "firestore": {
     "rules": "firestore.rules",

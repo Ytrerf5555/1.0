@@ -4,6 +4,7 @@ hidden = [".config", ".git", "generated-icon.png", "node_modules", "dist"]
 
 [nix]
 channel = "stable-25_05"
+packages = ["firebase-tools"]
 
 [deployment]
 deploymentTarget = "autoscale"
@@ -37,3 +38,6 @@ waitForPort = 5000
 [[ports]]
 localPort = 5000
 externalPort = 80
+
+[agent]
+integrations = ["firebase_barebones_javascript==1.0.0"]
