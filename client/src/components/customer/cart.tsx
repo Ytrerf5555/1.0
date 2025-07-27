@@ -7,7 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Minus, Plus, X } from "lucide-react";
+import { Minus, Plus, X, CreditCard, Banknote } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { MENU_ITEMS } from "@shared/schema";
 import type { MenuItem, InsertOrderEvent } from "@shared/schema";
@@ -16,10 +16,11 @@ interface CartProps {
   cart: MenuItem[];
   setCart: (cart: MenuItem[]) => void;
   tableNumber: number;
+  onOrderPlaced?: () => void;
 }
 
-export default function Cart({ cart, setCart, tableNumber }: CartProps) {
-  const [paymentMode, setPaymentMode] = useState<"upi" | "cash">("upi");
+export default function Cart({ cart, setCart, tableNumber, onOrderPlaced }: CartProps) {
+  const [paymentMode, setPaymentMode] = useState<"upi" | "cash">("cash");
   const [packFullOrder, setPackFullOrder] = useState(false);
   const { toast } = useToast();
 
@@ -75,8 +76,6 @@ export default function Cart({ cart, setCart, tableNumber }: CartProps) {
       return;
     }
 
-    console.log("Attempting to place order...", { cart, tableNumber, paymentMode });
-
     try {
       const order: InsertOrderEvent = {
         type: "order",
@@ -86,10 +85,7 @@ export default function Cart({ cart, setCart, tableNumber }: CartProps) {
         timestamp: serverTimestamp()
       };
 
-      console.log("Order data prepared:", order);
-      
       const docRef = await addDoc(collection(db, "events"), order);
-      console.log("Order placed successfully with ID:", docRef.id);
       
       // Clear cart after successful order
       setCart([]);
@@ -97,13 +93,15 @@ export default function Cart({ cart, setCart, tableNumber }: CartProps) {
       
       toast({
         title: "Order placed successfully!",
-        description: `Your order #${docRef.id.slice(-6)} has been sent to the kitchen.`,
+        description: `Your order #${docRef.id.slice(-6)} has been sent to the kitchen. ${paymentMode === 'cash' ? 'Please have cash ready for the waiter.' : 'Please have your UPI/card ready for payment.'}`,
       });
+
+      // Call the onOrderPlaced callback if provided
+      if (onOrderPlaced) {
+        onOrderPlaced();
+      }
     } catch (error) {
-      console.error("Detailed error placing order:", error);
-      console.error("Error name:", (error as any)?.name);
-      console.error("Error message:", (error as any)?.message);
-      console.error("Error code:", (error as any)?.code);
+      console.error("Error placing order:", error);
       
       toast({
         title: "Error placing order",
@@ -116,118 +114,124 @@ export default function Cart({ cart, setCart, tableNumber }: CartProps) {
   const total = calculateTotal();
 
   return (
-    <Card className="bg-secondary-dark border-gray-700">
-      <CardContent className="p-4 sm:p-6">
-        <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">Your Order</h3>
-        
-        {cart.length === 0 ? (
-          <p className="text-gray-400 text-center py-8">Your cart is empty</p>
-        ) : (
-          <>
-            {/* Cart Items */}
-            <div className="space-y-2 sm:space-y-3 mb-3 sm:mb-4">
-              {cart.map((item) => (
-                <Card key={item.id} className="bg-primary-dark border-gray-700">
-                  <CardContent className="p-2.5 sm:p-3">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-medium text-sm sm:text-base truncate mr-2">{item.name}</span>
+    <div className="space-y-4">
+      {cart.length === 0 ? (
+        <p className="text-gray-400 text-center py-8">Your cart is empty</p>
+      ) : (
+        <>
+          {/* Cart Items */}
+          <div className="space-y-3 mb-4">
+            {cart.map((item) => {
+              const itemPrice = getItemPrice(item.id);
+              return (
+                <div key={item.id} className="bg-primary-dark rounded-lg p-3">
+                  <div className="flex items-start justify-between mb-2">
+                    <div className="flex-1">
+                      <h4 className="font-medium text-sm">{item.name}</h4>
+                      <p className="text-accent-orange font-semibold text-sm">₹{itemPrice}</p>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => removeItem(item.id)}
+                      className="text-red-400 hover:text-red-300 p-1"
+                    >
+                      <X size={16} />
+                    </Button>
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="text-danger-red hover:text-red-400 h-5 w-5 sm:h-6 sm:w-6 p-0 flex-shrink-0"
-                        onClick={() => removeItem(item.id)}
+                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        className="w-8 h-8 p-0"
                       >
-                        <X size={12} />
+                        <Minus size={14} />
+                      </Button>
+                      <span className="w-8 text-center text-sm font-medium">{item.quantity}</span>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        className="w-8 h-8 p-0"
+                      >
+                        <Plus size={14} />
                       </Button>
                     </div>
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                      <div className="flex items-center space-x-2">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-6 w-6 p-0 bg-gray-600 hover:bg-gray-500"
-                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        >
-                          <Minus size={10} />
-                        </Button>
-                        <Input
-                          type="number"
-                          value={item.quantity}
-                          onChange={(e) => updateQuantity(item.id, parseInt(e.target.value) || 1)}
-                          className="w-12 sm:w-16 h-6 text-center bg-transparent border-none p-0 text-sm"
-                          min="1"
-                        />
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-6 w-6 p-0 bg-accent-orange hover:bg-orange-600"
-                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        >
-                          <Plus size={10} />
-                        </Button>
-                      </div>
-                      <div className="flex items-center justify-between sm:justify-end sm:space-x-2">
-                        <div className="flex items-center space-x-1">
-                          <Checkbox
-                            id={`pack-${item.id}`}
-                            checked={item.pack}
-                            onCheckedChange={() => toggleItemPack(item.id)}
-                          />
-                          <Label htmlFor={`pack-${item.id}`} className="text-xs sm:text-sm">
-                            Pack
-                          </Label>
-                        </div>
-                        <span className="text-accent-orange font-bold text-sm sm:text-base">
-                          ₹{getItemPrice(item.id) * item.quantity}
-                        </span>
-                      </div>
+                    
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id={`pack-${item.id}`}
+                        checked={item.pack}
+                        onCheckedChange={() => toggleItemPack(item.id)}
+                        className="data-[state=checked]:bg-accent-orange"
+                      />
+                      <Label htmlFor={`pack-${item.id}`} className="text-xs">Pack</Label>
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
 
-            {/* Order Options */}
-            <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+          {/* Pack All Option */}
+          <div className="bg-primary-dark rounded-lg p-3">
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="pack-all"
+                checked={packFullOrder}
+                onCheckedChange={handlePackFullOrder}
+                className="data-[state=checked]:bg-accent-orange"
+              />
+              <Label htmlFor="pack-all" className="text-sm">Pack entire order for takeaway</Label>
+            </div>
+          </div>
+
+          {/* Payment Mode */}
+          <div className="bg-primary-dark rounded-lg p-3">
+            <Label className="text-sm font-medium mb-3 block">Payment Method</Label>
+            <RadioGroup
+              value={paymentMode}
+              onValueChange={(value: "upi" | "cash") => setPaymentMode(value)}
+              className="space-y-2"
+            >
               <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="pack-all"
-                  checked={packFullOrder}
-                  onCheckedChange={handlePackFullOrder}
-                />
-                <Label htmlFor="pack-all" className="text-sm sm:text-base">Pack entire order</Label>
+                <RadioGroupItem value="cash" id="cash" />
+                <Label htmlFor="cash" className="text-sm flex items-center space-x-2">
+                  <Banknote size={16} />
+                  <span>Cash (Pay when waiter arrives)</span>
+                </Label>
               </div>
-              
-              <div>
-                <p className="text-sm font-medium mb-2">Payment Method:</p>
-                <RadioGroup value={paymentMode} onValueChange={(value: "upi" | "cash") => setPaymentMode(value)} className="flex flex-row sm:flex-col gap-4 sm:gap-2">
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="cash" id="cash" />
-                    <Label htmlFor="cash" className="text-sm sm:text-base">Cash</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="upi" id="upi" />
-                    <Label htmlFor="upi" className="text-sm sm:text-base">UPI</Label>
-                  </div>
-                </RadioGroup>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="upi" id="upi" />
+                <Label htmlFor="upi" className="text-sm flex items-center space-x-2">
+                  <CreditCard size={16} />
+                  <span>UPI/Card (Pay when waiter arrives)</span>
+                </Label>
               </div>
+            </RadioGroup>
+            <div className="mt-2 p-2 bg-secondary-dark rounded text-xs text-gray-400">
+              <strong>Note:</strong> All payments are made directly to the waiter when they serve your order. No advance payment required.
             </div>
+          </div>
 
-            <div className="border-t border-gray-700 pt-3 sm:pt-4">
-              <div className="flex justify-between text-base sm:text-lg font-bold mb-3 sm:mb-4">
-                <span>Total:</span>
-                <span className="text-accent-orange">₹{total}</span>
-              </div>
-              <Button 
-                className="w-full bg-accent-orange hover:bg-orange-600 text-white font-semibold py-2.5 sm:py-3 text-sm sm:text-base"
-                onClick={placeOrder}
-              >
-                Place Order
-              </Button>
+          {/* Total and Place Order */}
+          <div className="bg-primary-dark rounded-lg p-3">
+            <div className="flex items-center justify-between mb-3">
+              <span className="font-semibold">Total:</span>
+              <span className="text-accent-orange font-bold text-lg">₹{total}</span>
             </div>
-          </>
-        )}
-      </CardContent>
-    </Card>
+            <Button
+              onClick={placeOrder}
+              className="w-full bg-accent-orange hover:bg-accent-orange/90 text-white font-semibold py-3"
+            >
+              Place Order
+            </Button>
+          </div>
+        </>
+      )}
+    </div>
   );
 }

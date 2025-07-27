@@ -8,9 +8,10 @@ import type { InsertServiceRequestEvent, InsertBillingRequestEvent } from "@shar
 
 interface ServiceRequestsProps {
   tableNumber: number;
+  onRequestSent?: () => void;
 }
 
-export default function ServiceRequests({ tableNumber }: ServiceRequestsProps) {
+export default function ServiceRequests({ tableNumber, onRequestSent }: ServiceRequestsProps) {
   const { toast } = useToast();
 
   const sendServiceRequest = async (requestType: "staff" | "water" | "hot-water" | "cleaning") => {
@@ -28,6 +29,11 @@ export default function ServiceRequests({ tableNumber }: ServiceRequestsProps) {
         title: "Request sent!",
         description: `Your ${requestType.replace('-', ' ')} request has been sent to staff.`,
       });
+
+      // Call the onRequestSent callback if provided
+      if (onRequestSent) {
+        setTimeout(() => onRequestSent(), 1500); // Delay to show toast
+      }
     } catch (error) {
       console.error("Error sending request:", error);
       toast({
@@ -52,6 +58,11 @@ export default function ServiceRequests({ tableNumber }: ServiceRequestsProps) {
         title: "Bill requested!",
         description: "Your bill request has been sent to staff.",
       });
+
+      // Call the onRequestSent callback if provided
+      if (onRequestSent) {
+        setTimeout(() => onRequestSent(), 1500); // Delay to show toast
+      }
     } catch (error) {
       console.error("Error requesting bill:", error);
       toast({
