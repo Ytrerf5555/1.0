@@ -1,15 +1,19 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
-import { ArrowLeft, Utensils, ShoppingCart, HelpCircle } from "lucide-react";
+import { ArrowLeft, Utensils, ShoppingCart, HelpCircle, Calendar, Gift, Clock, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FoodMenu from "@/components/customer/food-menu";
 import Cart from "@/components/customer/cart";
 import ServiceRequests from "@/components/customer/service-requests";
+import { Reservations } from "@/components/customer/reservations";
+import { LoyaltyRewards } from "@/components/customer/loyalty-rewards";
+import { OrderAhead } from "@/components/customer/order-ahead";
 import type { MenuItem } from "@shared/schema";
 
 export default function CustomerPanel() {
@@ -18,6 +22,7 @@ export default function CustomerPanel() {
   const [showTableSelector, setShowTableSelector] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const [showService, setShowService] = useState(false);
+  const [activeTab, setActiveTab] = useState("menu");
 
   useEffect(() => {
     // Get table number from URL query parameter

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a full-stack hotel management system built with React (Vite), Express, and Firebase Firestore. The application provides three distinct interfaces: Customer Panel (for ordering food and requesting services), Staff Panel (for managing orders and service requests), and Admin Panel (for comprehensive system oversight). The system uses real-time Firebase integration for live updates across all panels.
+This is a comprehensive Restaurant Operating System (ROS) built with React (Vite), Express, and Firebase Firestore. The application provides a complete dining ecosystem with three specialized interfaces: Customer Experience App (mobile-optimized for ordering, reservations, loyalty rewards), Staff Workflow Panel (real-time order and service management), and Business Command Center (admin dashboard with analytics and inventory control). The system features advanced capabilities including table reservations, order-ahead scheduling, loyalty rewards program, dynamic menu management, and comprehensive feedback system - all with real-time Firebase synchronization.
 
 ## User Preferences
 
@@ -31,12 +31,15 @@ Preferred communication style: Simple, everyday language.
 
 ## Key Components
 
-### Customer Panel (`/customer`)
-- **Food Menu**: Category-based menu with dynamic filtering and item selection
-- **Shopping Cart**: Real-time cart management with quantity controls and packaging options
+### Customer Experience App (`/customer`)
+- **Food Menu**: Category-based menu with dynamic filtering, inventory tracking, and real-time availability
+- **Shopping Cart**: Advanced cart management with quantity controls, packaging options, and loyalty point calculations
+- **Order Ahead**: Schedule takeout/delivery orders for future pickup with time slot selection
+- **Table Reservations**: Complete booking system with date/time selection and confirmation tracking
+- **Loyalty Rewards**: Point-based reward system with tier benefits and redeemable catalog
 - **Service Requests**: One-click service requests (staff call, water, cleaning, hot water)
-- **Bill Requests**: Direct billing request functionality
-- **Order Placement**: Firebase integration for order submission with payment mode selection
+- **Feedback System**: Post-meal rating and review system linked to specific orders
+- **Mobile-First Design**: Optimized interface with tabbed navigation and floating action buttons
 
 ### Staff Panel (`/staff`)
 - **Order Management**: Real-time order queue with automatic status updates
@@ -44,12 +47,15 @@ Preferred communication style: Simple, everyday language.
 - **Order Tracking**: Visual order cards with item details and timestamps
 - **Task Completion**: One-click order and service request completion
 
-### Admin Panel (`/admin`)
-- **Dashboard**: System overview with key metrics and status indicators
-- **Orders Management**: Comprehensive order tracking and status management
-- **Billing System**: Bill generation and payment processing
-- **Service Requests**: Centralized service request monitoring and assignment
-- **Navigation**: Multi-page admin interface with sidebar navigation
+### Business Command Center (`/admin`)
+- **Analytics Dashboard**: Real-time business intelligence with popular item tracking and revenue metrics
+- **Dynamic Menu & Inventory**: Live menu management with stock levels and availability controls
+- **Orders Management**: Advanced order tracking with status management and kitchen workflow
+- **Reservation Management**: Table booking oversight with capacity planning and confirmation system
+- **Customer Feedback Hub**: Centralized review and rating management linked to order history
+- **Billing System**: Comprehensive payment processing and transaction tracking
+- **Service Request Center**: Staff task assignment and service quality monitoring
+- **Business Intelligence**: Performance metrics, popular items analysis, and operational insights
 
 ### Shared Components
 - **Firebase Configuration**: Centralized Firebase setup with environment variable support
